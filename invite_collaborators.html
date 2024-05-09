@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Collaborators</title>
+</head>
+<body>
+    <h1>Invite Collaborators</h1>
+    <form id="collaborator-form">
+        <label for="repo-name">Repository Name:</label>
+        <input type="text" id="repo-name" name="repo-name" required>
+        
+        <label for="collaborator-username">Collaborator Username:</label>
+        <input type="text" id="collaborator-username" name="collaborator-username" required>
+
+        <button type="submit">Invite Collaborator</button>
+    </form>
+
+    <script>
+        document.getElementById('collaborator-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var repoName = document.getElementById('repo-name').value;
+            var collaboratorUsername = document.getElementById('collaborator-username').value;
+
+            // Make API request to invite collaborator
+            // You can use GitHub API directly here or send data to your server
+            // Replace 'YOUR_ACCESS_TOKEN' with an actual access token
+
+            // Example API request using fetch
+            fetch(`https://api.github.com/repos/${collaboratorUsername}/${repoName}/collaborators`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+                },
+                body: JSON.stringify({
+                    // Collaborator details
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Collaborator invited successfully!');
+                } else {
+                    alert('Failed to invite collaborator. Please check the repository name and collaborator username.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
